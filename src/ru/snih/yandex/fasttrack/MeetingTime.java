@@ -1,7 +1,9 @@
 package ru.snih.yandex.fasttrack;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class MeetingTime {
@@ -17,16 +19,16 @@ public class MeetingTime {
                 B:
                 for (int j = 0; j < b.length; j++) {
                     if (b[j].getDuration() < duration) continue;
-                    if (a[i].end <= b[j].start) break B;
-                    if (a[i].start + duration <= b[j].end && b[j].start + duration <= a[i].end) {
+                    if (b[j].start >= a[i].end) break B;
+                    if (b[j].start + duration <= a[i].end && a[i].start + duration <= b[j].end) {
                         int meetingStart = Math.max(a[i].start, b[j].start);
                         meetingTime = new Interval(meetingStart, meetingStart + duration);
                         break A;
                     }
                 }
             }
-            System.out.println(meetingTime);
-        } catch (FileNotFoundException e) {
+            Files.write(Path.of("output.txt"), meetingTime.toString().getBytes());
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
