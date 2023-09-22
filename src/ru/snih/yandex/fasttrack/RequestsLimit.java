@@ -43,21 +43,23 @@ public class RequestsLimit {
         System.out.println(response);
         System.out.flush();
     }
+
+    static class Request {
+        private final int time, userId;
+
+        public Request(int time, int userId) {
+            this.time = time;
+            this.userId = userId;
+        }
+
+        public int getTime() {
+            return time;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+    }
 }
 
-class Request {
-    private final Integer time, userId;
 
-    public Request(int time, int userId) {
-        this.time = time;
-        this.userId = userId;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-}
